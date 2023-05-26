@@ -7,8 +7,7 @@ impl Solution {
         let mut ask = HashMap::new();
 
         for (index, x) in nums.iter().enumerate() {
-            let expect = ask.get(x);
-            match expect {
+            match ask.get(x) {
                 Some(expect_index) => return vec![*expect_index, index as i32],
                 None => {
                     ask.insert(target - x, index as i32);
