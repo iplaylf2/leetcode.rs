@@ -35,12 +35,14 @@ impl Solution {
                 next: l2_next,
             } = l2.deref_mut();
 
-            let (x, c) = match *l1_val + *l2_val + carry {
-                x if x < 10 => (x, 0),
-                x => (x - 10, 1),
-            };
-            *l1_val = x;
-            carry = c;
+            {
+                let (x, c) = match *l1_val + *l2_val + carry {
+                    x if x < 10 => (x, 0),
+                    x => (x - 10, 1),
+                };
+                *l1_val = x;
+                carry = c;
+            }
 
             l1 = match l1_next.as_ref() {
                 Some(next) => unsafe {
@@ -71,6 +73,7 @@ impl Solution {
             current = match current {
                 Some(node) => {
                     let ListNode { val, next } = node.deref_mut();
+
                     match *val + 1 {
                         x if x < 10 => {
                             *val = x;
