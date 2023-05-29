@@ -8,26 +8,27 @@ impl Solution {
             0 => return 0,
             1 => return 1,
             x => x,
-        };
+        } as i32;
 
         let mut record = [-1; 127];
 
-        let mut anchor = 0;
-        let mut maximum = 0;
+        let mut anchor: i32 = 0;
+        let mut maximum: i32 = 0;
 
         for (i, x) in s.chars().enumerate() {
-            let end_point = mem::replace(&mut record[x as usize], i as i32);
+            let current: i32 = i as i32;
+            let end_point = mem::replace(&mut record[x as usize], current);
 
             if -1 != end_point {
-                maximum = cmp::max(maximum, i - anchor);
-                anchor = cmp::max(anchor, end_point as usize + 1);
+                maximum = cmp::max(maximum, current - anchor);
+                anchor = cmp::max(anchor, end_point + 1);
 
                 if size - anchor <= maximum {
-                    return maximum as i32;
+                    return maximum;
                 }
             }
         }
 
-        return (size - anchor) as i32;
+        return size - anchor;
     }
 }
